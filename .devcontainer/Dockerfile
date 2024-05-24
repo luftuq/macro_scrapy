@@ -15,7 +15,12 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER .devcontainer/environment.yaml /tmp/environ
 RUN micromamba install -y -n base -f /tmp/environment.yaml
 ARG MAMBA_DOCKERFILE_ACTIVATE=1 
 RUN micromamba config append channels conda-forge
-RUN playwright install chromium 
+# Install Git
 USER root
-RUN playwright install-deps chromium
+RUN apt-get update && apt-get install -y git
 USER $MAMBA_USER
+
+#RUN playwright install chromium 
+#USER root
+#RUN playwright install-deps chromium
+#USER $MAMBA_USER

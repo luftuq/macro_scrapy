@@ -23,6 +23,7 @@ quarter_months = [0, 3, 6, 9]
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
           'August', 'September', 'October', 'November', 'December']
 date_list = []
+number_of_months = 12
 
 
 def monthly_data(years: int) -> list:
@@ -123,7 +124,7 @@ def list_growth(sequence: any) -> list:
 
 
 class ExcelHandler:
-    """A class to handle Excel files"""
+    """A class to handle Excel files."""
 
     def __init__(self):
         """Initialize ExcelHandler with necessary attributes."""
@@ -168,20 +169,25 @@ class ExcelHandler:
         Read an Excel file into a DataFrame.
 
         Args:
-            excel_stream (str, optional): The input Excel stream. Defaults to instance's excel_stream.
-            sheet_name (str, optional): The name of the sheet to read from. Defaults to 'Sheet1'.
-            skip_rows (int, optional): The number of rows to skip at the beginning. Defaults to 0.
-            has_header (bool, optional): Whether the Excel file has a header. Defaults to True.
-            columns (list, optional): The list of column names to consider. If not provided, all columns are considered.
+            excel_stream (str, optional): The input Excel stream.
+            sheet_name (str, optional): Name of the sheet to read from.
+            skip_rows (int, optional): The number of rows to skip.
+            has_header (bool, optional): Whether the Excel file has a header.
+            columns (list, optional): The list of column names to consider.
 
         Returns:
-            ExcelHandler: An instance of the ExcelHandler class with the DataFrame read from the Excel file.
+            ExcelHandler: An instance of the ExcelHandler class.
         """
         if excel_stream is None:
             excel_stream = self.excel_stream
         self.df = pl.read_excel(
             excel_stream,
             sheet_name=sheet_name,
+            read_options={
+                'skip_rows': skip_rows,
+                'has_header': has_header,
+                'columns': columns,
+                },
             read_options={'skip_rows': skip_rows, 
                           'has_header': has_header,
                           'columns': columns,
@@ -221,9 +227,43 @@ class ExcelHandler:
         ).collect()
         return self
 
-    def write_data(self, output_file: str) -> 'ExcelHandler':
+    def read_data_csv(self, source, skip_rows=0,
+                      has_header=False, separator=',',
+                      encoding='utf8', missing_utf8_is_empty_string=False,
+                      null_values=' ',
+                      ) -> 'ExcelHandler':
         """
-        Write DataFrame to Excel file.
+        Read an Csv file into a DataFrame.
+
+        Args:
+            source (str, optional): The input .csv file.
+            skip_rows (int, optional): The number of rows to skip.
+            has_header (bool, optional): Whether the .csv file has a header.
+            encoding (str, optional): encoding of the .csv file.
+            missing_utf8_is_empty_string (bool, optional): whether to treat
+             missing utf8 values as empty strings. Defaults to False.
+            null_values: Which values should be treated as null.
+
+        Returns
+            ExcelHandler: An instance of the ExcelHandler class.
+        """
+        if source is None:
+            source = self.source
+        self.df = pl.scan_csv(
+            source,
+            has_header=has_header,
+            separator=separator,
+            encoding=encoding,
+            missing_utf8_is_empty_string=missing_utf8_is_empty_string,
+            skip_rows=skip_rows, null_values=null_values,
+        ).collect()
+        return self
+
+    def write_data(self, output_file) -> 'ExcelHandler':
+        """Write DataFrame to Excel file.
+
+        Args:
+            output_file (str, optional): The the name of the output .xlsx file.
 
         Returns:
             ExcelHandler: An instance of the ExcelHandler class.

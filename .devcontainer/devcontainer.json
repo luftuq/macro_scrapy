@@ -13,12 +13,11 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                //"ms-azuretools.vscode-docker",
+                "eamodio.gitlens",
+                "grapecity.gc-excelviewer",
+                "mechatroner.rainbow-csv",
                 "ms-python.python",
-                "ms-python.flake8",
-                "eamodio.gitlens"
-                //"ms-vscode-remote.remote-containers"
-
+                "ms-python.flake8"
             ]
         }
     }  

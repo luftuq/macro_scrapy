@@ -45,6 +45,5 @@ class EmployeePotential:
         self.process_data()
         self.excel_handler.write_data(output_file=self.output_file)
 
-
 if __name__ == '__main__':
     EmployeePotential().run_it_all()

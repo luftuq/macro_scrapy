@@ -188,45 +188,9 @@ class ExcelHandler:
                 'has_header': has_header,
                 'columns': columns,
                 },
-            read_options={'skip_rows': skip_rows, 
-                          'has_header': has_header,
-                          'columns': columns,
-                          },
         )
         return self
     
-    def read_data_csv(self, source, skip_rows=0,
-                      has_header=False, separator=',',
-                      encoding='utf8', missing_utf8_is_empty_string=False,
-                      null_values=' ',
-                      ) -> 'ExcelHandler':
-        """
-        Read an Csv file into a DataFrame.
-
-        Args:
-            source (str, optional): The input .csv file.
-            skip_rows (int, optional): The number of rows to skip.
-            has_header (bool, optional): Whether the .csv file has a header.
-            encoding (str, optional): encoding of the .csv file.
-            missing_utf8_is_empty_string (bool, optional): whether to treat
-             missing utf8 values as empty strings. Defaults to False.
-            null_values: Which values should be treated as null.
-
-        Returns
-            ExcelHandler: An instance of the ExcelHandler class.
-        """
-        if source is None:
-            source = self.source
-        self.df = pl.scan_csv(
-            source,
-            has_header=has_header,
-            separator=separator,
-            encoding=encoding,
-            missing_utf8_is_empty_string=missing_utf8_is_empty_string,
-            skip_rows=skip_rows, null_values=null_values,
-        ).collect()
-        return self
-
     def read_data_csv(self, source, skip_rows=0,
                       has_header=False, separator=',',
                       encoding='utf8', missing_utf8_is_empty_string=False,

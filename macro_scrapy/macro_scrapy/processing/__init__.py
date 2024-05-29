@@ -8,6 +8,7 @@ from datetime import timezone
 
 import re
 import polars as pl
+import pandas as pd
 from xls2xlsx import XLS2XLSX
 from zipfile import ZipFile
 
@@ -17,6 +18,7 @@ current_year = current_date.year
 folder_name = current_date.strftime('%Y%m%d')
 input_path = parent_folder+'/data/'+folder_name+'/input/'+folder_name+'_'
 output_path = parent_folder+'/data/'+folder_name+'/output/'+folder_name+'_'
+input_folder = parent_folder+'/data/'+folder_name+'/input/'
 quarter_months = [0, 3, 6, 9]
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
           'August', 'September', 'October', 'November', 'December']
@@ -188,7 +190,7 @@ class ExcelHandler:
                 },
         )
         return self
-
+    
     def read_data_csv(self, source, skip_rows=0,
                       has_header=False, separator=',',
                       encoding='utf8', missing_utf8_is_empty_string=False,
@@ -231,4 +233,40 @@ class ExcelHandler:
             ExcelHandler: An instance of the ExcelHandler class.
         """
         self.df.write_excel(output_file)
+        return self
+
+    def extract_zipfile(self, zip_file_path: str, file_to_extract: str, destination_folder: str) -> 'ExcelHandler':
+        """
+        Extract a specific file from a zip archive to a destination folder.
+
+        Args:
+            zip_file_path (str): The path of the zip file.
+            file_to_extract (str): The name of the file to extract.
+            destination_folder (str): The folder to extract the file to.
+
+        Returns:
+            ExcelHandler: An instance of the ExcelHandler class.
+        """
+        self.input_file = zip_file_path
+        with ZipFile(self.input_file, "r") as zip:
+            zip.extract(file_to_extract, destination_folder)
+        return self
+
+    def convert_xls_to_xlsx(self, xls_file_path: str, xlsx_file_path: str) -> 'ExcelHandler':
+        """
+        Convert an XLS file to an XLSX file.
+
+        Args:
+            xls_file_path (str): The path to the input XLS file.
+            xlsx_file_path (str): The path to the output XLSX file.
+
+        Returns:
+            ExcelHandler: An instance of the ExcelHandler class.
+        """
+        xls = pd.read_excel(xls_file_path, sheet_name=None, engine='xlrd')
+
+        with pd.ExcelWriter(xlsx_file_path, engine='openpyxl') as writer:
+            for sheet_name, df in xls.items():
+                df.to_excel(writer, sheet_name=sheet_name, index=False)
+
         return self

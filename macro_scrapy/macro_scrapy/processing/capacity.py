@@ -8,8 +8,12 @@ class Capacity:
 
     def __init__(self) -> None:
         """Initialize the EmployeePotential class."""
-        self.input_file = '{0}Capacity.xlsx'.format(input_path)
-        self.output_file = '{0}CapacityUtilization.xlsx'.format(output_path)
+        self.input_file = '{0}Capacity.xlsx'.format(
+            input_path,
+            )
+        self.output_file = '{0}CapacityUtilization.xlsx'.format(
+            output_path,
+            )
         self.excel_handler = ExcelHandler()
 
     def process_data(self) -> 'Capacity':

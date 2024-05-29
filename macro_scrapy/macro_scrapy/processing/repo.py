@@ -6,7 +6,7 @@ from __init__ import ExcelHandler, input_path, output_path
 class RepoData:
     """A class to process 2W CNB repo rates from an Excel file."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize RepoData with necessary attributes."""
         self.input_file = '{0}REPO.xlsx'.format(input_path)
         self.output_file = '{0}Repo.xlsx'.format(output_path)
@@ -80,7 +80,7 @@ class RepoData:
         )
         return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """
         Execute all the steps to process the REPO data.
 

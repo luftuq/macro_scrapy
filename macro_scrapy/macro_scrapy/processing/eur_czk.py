@@ -6,7 +6,7 @@ from __init__ import ExcelHandler, input_path, output_path
 class EurCzkData:
     """A class to process EUR/CZK exchange rates from a .csv file."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize EurCzkData with necessary attributes."""
         self.input_file = '{0}CNB_EUR_CZK.csv'.format(input_path)
         self.output_file = '{0}Eur_Czk.xlsx'.format(output_path)
@@ -29,7 +29,7 @@ class EurCzkData:
             )
         return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """
         Execute all the steps to process the CNB_EUR_CZK data.
 

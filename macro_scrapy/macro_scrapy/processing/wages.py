@@ -17,12 +17,10 @@ class Wages:
         self.excel_handler = ExcelHandler()
 
     def process_data(self) -> 'Wages':
-        """Process the data.
-
-        Drop the blank columns, transpose and forward fill 'Year' values.
+        """Drop the blank columns, transpose and forward fill 'Year' values.
 
         Returns:
-        Wages: An instance of the Wages class.
+            Wages: An instance of the Wages class.
         """
         df = self.excel_handler.df
         df = df.select(pl.exclude('column_1', 'column_2'))
@@ -41,8 +39,9 @@ class Wages:
 
         df.with_columns(pl.col('Year').forward_fill())
         self.excel_handler.df = df
+        return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """Execute all the steps to process the unemployment data."""
         self.excel_handler.read_data(
             excel_stream=self.input_file,

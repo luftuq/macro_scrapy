@@ -5,7 +5,7 @@ from __init__ import ExcelHandler, input_path, output_path
 class IndOrd:
     """A class to handle the processing of IndOrd data."""
 
-    def __init__(self, freq, columns_to_skip) -> None:
+    def __init__(self, freq: str, columns_to_skip: int) -> None:
         """Initialize the Industrial Orders class.
 
         Args:
@@ -44,7 +44,7 @@ class IndOrd:
         self.excel_handler.df = df
         return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """Execute all the steps to process the industrial orders data."""
         self.excel_handler.read_data(
             excel_stream=self.input_file,

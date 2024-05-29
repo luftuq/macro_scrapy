@@ -2,12 +2,13 @@ name: macro_scrapy
 channels:
   - conda-forge
 dependencies:
-  - scrapy
+  - eurostat
+  - mypy
   - pip
   - polars
+  - scrapy
   - xlsx2csv
   - xlsxwriter
-  - mypy
   - pip:
       - xls2xlsx
       - wemake-python-styleguide

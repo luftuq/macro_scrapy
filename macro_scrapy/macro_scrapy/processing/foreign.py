@@ -5,7 +5,7 @@ from __init__ import ExcelHandler, input_path, output_path
 class Foreign:
     """A class to handle the processing of Foreign Trade data."""
 
-    def __init__(self, freq) -> None:
+    def __init__(self, freq: str) -> None:
         """Initialize the Foreign class.
 
         Args:
@@ -41,7 +41,7 @@ class Foreign:
             ]
         return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """Execute all the steps to process the industrial evolution data."""
         self.excel_handler.read_data(
             excel_stream=self.input_file,

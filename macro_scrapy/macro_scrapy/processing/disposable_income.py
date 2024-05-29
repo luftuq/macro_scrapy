@@ -5,7 +5,7 @@ from __init__ import ExcelHandler, input_path, output_path
 class DisposableIncome:
     """A class handling the processing of Households Disposable Income data."""
 
-    def __init__(self, freq) -> None:
+    def __init__(self, freq: str) -> None:
         """Initialize the Disposable Income class.
 
         Args:
@@ -33,7 +33,7 @@ class DisposableIncome:
         self.excel_handler.df = df
         return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """Execute all the steps to process the retail data."""
         self.excel_handler.read_data_csv(
             source=self.input_file,

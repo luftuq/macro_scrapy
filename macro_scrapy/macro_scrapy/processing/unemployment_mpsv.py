@@ -8,7 +8,7 @@ from __init__ import ExcelHandler, input_path, output_path
 class UnemploymentData:
     """A class to process unemployment data from an Excel file within a zip."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize UnemploymentData with necessary attributes."""
         self.start_date = date(1991, 1, 31)
         self.output_file = '{0}UnemployedVacancies.xlsx'.format(output_path)
@@ -49,7 +49,7 @@ class UnemploymentData:
         )
         return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """
         Execute all the steps to process the unemployment data.
 

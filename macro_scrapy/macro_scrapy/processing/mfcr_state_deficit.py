@@ -6,7 +6,7 @@ from __init__ import ExcelHandler, input_path, output_path
 class MFCRStateDeficitData:
     """A class to process MFCR state deficit data exchange rates from a csv."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize MFCRStateDeficitData with necessary attributes."""
         self.input_file = '{0}MFCR_state_deficit.csv'.format(input_path)
         self.output_file = '{0}MFCR_State_Deficit.xlsx'.format(output_path)
@@ -54,7 +54,7 @@ class MFCRStateDeficitData:
                 subset=['saldo'],
             ).with_columns(
                 pl.col('date_published').str.to_datetime(
-                '%d.%m.%Y', strict=False,
+                    '%d.%m.%Y', strict=False,
                 ),
             )
         )
@@ -82,7 +82,7 @@ class MFCRStateDeficitData:
         )
         return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """Execute all the steps to process the MFCRStateDeficitData data.
 
         This method performs the following steps:

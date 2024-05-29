@@ -1,13 +1,13 @@
 """Main module for processing electricity data."""
 from pathlib import Path
 
-from __init__ import ExcelHandler, input_path, output_path, input_folder
+from __init__ import ExcelHandler, input_folder, input_path, output_path
 
 
 class Gas:
     """A class to process Gas prices data from an Excel file within a zip."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize Gas with necessary attributes."""
         self.output_file = '{0}Gas.xlsx'.format(output_path)
         self.input_file = '{0}Gas.zip'.format(input_path)
@@ -16,7 +16,7 @@ class Gas:
         self.input_file_xlsx = Path(self.input_file_xls).with_suffix('.xlsx')
         self.excel_handler = ExcelHandler()
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """Execute all the steps to process the gas prices data."""
         self.excel_handler.extract_zipfile(
             self.input_file,

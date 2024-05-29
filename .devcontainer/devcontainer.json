@@ -16,8 +16,9 @@
                 "eamodio.gitlens",
                 "grapecity.gc-excelviewer",
                 "mechatroner.rainbow-csv",
-                "ms-python.python",
-                "ms-python.flake8"
+                "ms-python.flake8",
+                "ms-python.mypy-type-checker",
+                "ms-python.python"
             ]
         }
     }  

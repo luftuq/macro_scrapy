@@ -45,7 +45,7 @@ class HouseholdDebt:
 
         df = pl.concat(list(series_dict.values()), how='horizontal')
         df = df.with_columns(
-            v4=(pl.col('pl')+pl.col('hu')+pl.col('sk'))/3,
+            v4=pl.mean_horizontal('pl', 'hu', 'sk'),
             )
 
         self.excel_handler.df = df
@@ -56,7 +56,7 @@ class HouseholdDebt:
         Add date column to DataFrame based on start_date.
 
         Returns:
-            UnemploymentData: An instance of the UnemploymentData class.
+            HouseholdDebt: An instance of the UnemploymentData class.
         """
         df = self.excel_handler.df
         df = df.with_columns(time=pl.date_range(
@@ -69,7 +69,7 @@ class HouseholdDebt:
         self.excel_handler.df = df
         return self
 
-    def run_it_all(self):
+    def run_it_all(self) -> None:
         """Execute all the steps to process the retail data."""
         self.excel_handler.read_data_csv(
             source=self.input_file,

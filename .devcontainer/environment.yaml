@@ -7,9 +7,9 @@ dependencies:
   - pip
   - polars
   - scrapy
+  - wemake-python-styleguide
   - xlsx2csv
   - xlsxwriter
   - pip:
       - xls2xlsx
-      - wemake-python-styleguide
 prefix: /opt/conda/envs/macro_scrapy
